@@ -13,7 +13,7 @@ function createMarkup() {
       src="${galleryItems[i].preview}"
       data-source="${galleryItems[i].original}"
       alt="${galleryItems[i].description}"
-      target="_parent">
+      >
     
   </a>
 </li>`
@@ -22,8 +22,23 @@ function createMarkup() {
 } 
  createMarkup() 
    
-containerGal.insertAdjacentHTML("beforeend", markup)
+// containerGal.insertAdjacentHTML("beforeend", markup)
 containerGal.addEventListener("click", onclick);
-// function onclick (event => )
+function onclick(event) {
+  for (let i = 0; i < galleryItems.length; i++){
+    if (event.target.getAttribute("src") === galleryItems[i].preview) {
+      const instance = basicLightbox.create(`<img src="${galleryItems[i].original}" width="1280" height ="800">`)
+        instance.show()
+      event.preventDefault()
+      document.body.addEventListener("keydown", (e) => {
+        if (e.code === "Escape") {
+          instance.close()
+        }
+      })
+    }
+    
+  }
+ 
+}
 
 console.log(galleryItems);
